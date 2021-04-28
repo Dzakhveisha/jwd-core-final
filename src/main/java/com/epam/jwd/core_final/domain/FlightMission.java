@@ -2,7 +2,6 @@ package com.epam.jwd.core_final.domain;
 
 import com.epam.jwd.core_final.service.impl.SpacemapServiceImpl;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +25,7 @@ public class FlightMission extends AbstractBaseEntity{
     private LocalDate startDate;
     private LocalDate endDate;
     private long distance;
-    private Spaceship assignedSpaceShift;
+    private Spaceship assignedSpaceShip;
     private List<CrewMember> assignedCrew;
     private MissionResult missionResult;
     private Planet from;
@@ -64,6 +63,18 @@ public class FlightMission extends AbstractBaseEntity{
         return to;
     }
 
+    public void setAssignedSpaceShip(Spaceship assignedSpaceShip) {
+        this.assignedSpaceShip = assignedSpaceShip;
+    }
+
+    public void setAssignedCrew(List<CrewMember> assignedCrew) {
+        this.assignedCrew = assignedCrew;
+    }
+
+    public void setMissionResult(MissionResult missionResult) {
+        this.missionResult = missionResult;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,13 +82,13 @@ public class FlightMission extends AbstractBaseEntity{
         FlightMission that = (FlightMission) o;
         return distance == that.distance && Objects.equals(missionsName, that.missionsName) &&
                 Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) &&
-                Objects.equals(assignedSpaceShift, that.assignedSpaceShift) && Objects.equals(assignedCrew, that.assignedCrew) &&
+                Objects.equals(assignedSpaceShip, that.assignedSpaceShip) && Objects.equals(assignedCrew, that.assignedCrew) &&
                 missionResult == that.missionResult && Objects.equals(from, that.from) && Objects.equals(to, that.to);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(missionsName, startDate, endDate, distance, assignedSpaceShift, assignedCrew, missionResult, from, to);
+        return Objects.hash(missionsName, startDate, endDate, distance, assignedSpaceShip, assignedCrew, missionResult, from, to);
     }
 
     @Override
@@ -87,7 +98,7 @@ public class FlightMission extends AbstractBaseEntity{
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", distance=" + distance + "\n" +
-                "   assignedSpaceShift=" + assignedSpaceShift +
+                "   assignedSpaceShift=" + assignedSpaceShip +
                 ", assignedCrew=" + assignedCrew +
                 ", missionResult=" + missionResult +
                 ",\n from=" + from.toString() +

@@ -1,16 +1,14 @@
 package com.epam.jwd.core_final.service.impl;
 
 import com.epam.jwd.core_final.criteria.Criteria;
+import com.epam.jwd.core_final.criteria.FlightMissionCriteria;
 import com.epam.jwd.core_final.domain.*;
 import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import com.epam.jwd.core_final.service.MissionService;
 import com.epam.jwd.core_final.service.SpacemapService;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -61,6 +59,7 @@ public class FlightMissionServiceImpl implements MissionService {
                     flightMission.getName(), LocalDate.now(),
                     LocalDate.now().plusMonths(1 + (int) (Math.random() * 60)), start, end
             );
+            updateMission.setMissionResult(MissionResult.resolveMissionResultById(1 + (int)(Math.random() * 5)));
             missionList.remove(missionList.indexOf(flightMission)); // delete old
             return createMission(updateMission);
         }
@@ -77,5 +76,14 @@ public class FlightMissionServiceImpl implements MissionService {
 
         missionList.add(flightMission);
         return flightMission;
+    }
+
+    @Override
+    public FlightMission assignSpaceship( int id, Spaceship spaceship){
+        FlightMission mission = missionList.stream().filter(new FlightMissionCriteria().searchByID(id)
+                .build()).findFirst().orElse(null);
+        mission.setAssignedSpaceShip(spaceship);
+        missionList.remove(missionList.indexOf(mission));
+        return createMission(mission);
     }
 }
