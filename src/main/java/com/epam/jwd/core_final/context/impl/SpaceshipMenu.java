@@ -1,20 +1,13 @@
 package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.context.ApplicationContext;
-import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
-import com.epam.jwd.core_final.domain.CrewMember;
-import com.epam.jwd.core_final.domain.Rank;
-import com.epam.jwd.core_final.domain.Role;
 import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.exception.UnknownEntityException;
 import com.epam.jwd.core_final.service.SpaceshipService;
 import com.epam.jwd.core_final.service.impl.SpaceshipServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class SpaceshipMenu extends NassaMenu {
 
@@ -34,6 +27,7 @@ public class SpaceshipMenu extends NassaMenu {
     @Override
     public int handleUserInput() {
         int comm = scan.nextInt();
+        if (comm > 2)  throw new IllegalStateException("Unexpected value: " + comm);
         if ( comm == 1) {
             SpaceshipCriteria criteria = new SpaceshipCriteria();
             System.out.println("Write one or more numbers to select an action: ");

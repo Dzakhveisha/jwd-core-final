@@ -3,7 +3,10 @@ package com.epam.jwd.core_final.context.impl;
 import com.epam.jwd.core_final.context.ApplicationContext;
 import com.epam.jwd.core_final.criteria.FlightMissionCriteria;
 import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
-import com.epam.jwd.core_final.domain.*;
+import com.epam.jwd.core_final.domain.FlightMission;
+import com.epam.jwd.core_final.domain.Planet;
+import com.epam.jwd.core_final.domain.Spaceship;
+import com.epam.jwd.core_final.exception.UnknownEntityException;
 import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import com.epam.jwd.core_final.service.MissionService;
 import com.epam.jwd.core_final.service.SpacemapService;
@@ -12,14 +15,15 @@ import com.epam.jwd.core_final.service.impl.FlightMissionServiceImpl;
 import com.epam.jwd.core_final.service.impl.SpacemapServiceImpl;
 import com.epam.jwd.core_final.service.impl.SpaceshipServiceImpl;
 import com.epam.jwd.core_final.util.JsonConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 public class MissionsMenu extends NassaMenu {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger("LOGGER");
 
     private final MissionFactory MISSION_FACTORY = MissionFactory.getInstance();
     private final SpacemapService SPACEMAP_SERVICE = SpacemapServiceImpl.getInstance();
@@ -60,10 +64,14 @@ public class MissionsMenu extends NassaMenu {
             case 2:
                 System.out.println(" Enter the id of mission: ");
                 int id = scan.nextInt();
-                FlightMission update = MISSION_SERVICE.updateMissionDetails(
-                        MISSION_SERVICE.findMissionByCriteria(new FlightMissionCriteria().searchByID(id)).
-                                orElse(null));
-                System.out.println(update);
+                try {
+                    FlightMission update = MISSION_SERVICE.updateMissionDetails(
+                            MISSION_SERVICE.findMissionByCriteria(new FlightMissionCriteria().searchByID(id)).
+                                    orElse(null));
+                    System.out.println(update);
+                } catch (UnknownEntityException ex) {
+                    LOGGER.error(ex.getMessage());
+                }
                 break;
             case 3:
                 System.out.println(" Enter the name of mission: ");
@@ -77,28 +85,35 @@ public class MissionsMenu extends NassaMenu {
             case 4:
                 System.out.println(" Enter the id of mission: ");
                 id = scan.nextInt();
-                FlightMission mission2 = MISSION_SERVICE.findMissionByCriteria(new FlightMissionCriteria()
-                        .searchByID(id)).orElse(null);
-                Spaceship spaceship = SPACESHIP_SERVICE.findSpaceshipByCriteria(
-                                new SpaceshipCriteria().searchByReadiness()
-                                .searchByMinDistance(mission2.getDistance()))
-                                .orElse(null);
+                try {
+                    FlightMission mission2 = MISSION_SERVICE.findMissionByCriteria(new FlightMissionCriteria()
+                            .searchByID(id)).orElseThrow(new UnknownEntityException("Mission"));
+                    Spaceship spaceship = SPACESHIP_SERVICE.findSpaceshipByCriteria(
+                            new SpaceshipCriteria().searchByReadiness()
+                                    .searchByMinDistance(mission2.getDistance()))
+                            .orElse(null);
 
-                //ArrayList<CrewMember> crewList = new ArrayList<>();
-                //for ( int i = 1; i <= 4; i++){
-                //    Short count = spaceship.getCrew().get(Role.resolveRoleById(i));
-                //}
-
-                mission2 = MISSION_SERVICE.assignSpaceship(id, spaceship);
-                System.out.println(mission2);
+                    //ArrayList<CrewMember> crewList = new ArrayList<>();
+                    //for ( int i = 1; i <= 4; i++){
+                    //    Short count = spaceship.getCrew().get(Role.resolveRoleById(i));
+                    //}
+                    mission2 = MISSION_SERVICE.assignSpaceship(id, spaceship);
+                    System.out.println(mission2);
+                } catch (UnknownEntityException ex) {
+                    LOGGER.error(ex.getMessage());
+                }
                 break;
             case 6:
                 System.out.println(" Enter the id of mission ");
                 id = scan.nextInt();
-                FlightMission recordedMission = MISSION_SERVICE.findMissionByCriteria(
-                        new FlightMissionCriteria().searchByID(id)).orElse(null);
-                System.out.println(recordedMission);
-                JSON_CONVERTER.toJSON(recordedMission);
+                try {
+                    FlightMission recordedMission = MISSION_SERVICE.findMissionByCriteria(
+                            new FlightMissionCriteria().searchByID(id)).orElseThrow(new UnknownEntityException("Mission"));
+                    System.out.println(recordedMission);
+                    JSON_CONVERTER.toJSON(recordedMission);
+                } catch (UnknownEntityException ex) {
+                    LOGGER.error(ex.getMessage());
+                }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + command);

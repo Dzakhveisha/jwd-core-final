@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 public enum NassaApplication implements Application {
     INSTANCE;
 
+    public static final Logger LOGGER = LoggerFactory.getLogger("LOGGER");
+
     private final ApplicationContext nassaContext = new NassaContext();
 
     @Override
@@ -19,7 +21,13 @@ public enum NassaApplication implements Application {
         int result;
         do {
             menu.printAvailableOptions();
-            result = menu.handleUserInput();
+            try {
+                result = menu.handleUserInput();
+            }
+            catch (IllegalStateException ex){
+                LOGGER.error(ex.getMessage());
+                result = 1;
+            }
         } while (result != 0);
 
         return menu;

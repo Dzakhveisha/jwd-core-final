@@ -45,7 +45,7 @@ public class NassaMenu implements ApplicationMenu {
             case 0:
                 return 0;
             default:
-                System.out.println("Command is not valid");
+                throw new IllegalStateException("Unexpected value: " + command);
         }
         int result;
         if (menu != null) {

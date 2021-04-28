@@ -29,6 +29,7 @@ public class CrewMemberMenu extends NassaMenu {
     @Override
     public int handleUserInput() {
         int comm = scan.nextInt();
+        if (comm > 2)  throw new IllegalStateException("Unexpected value: " + comm);
         if (comm == 1) {
             CrewMemberCriteria criteria = new CrewMemberCriteria();
             System.out.println("Write one or more numbers to select an action: ");
