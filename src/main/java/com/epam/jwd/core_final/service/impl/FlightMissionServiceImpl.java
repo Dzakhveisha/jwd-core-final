@@ -3,6 +3,7 @@ package com.epam.jwd.core_final.service.impl;
 import com.epam.jwd.core_final.criteria.Criteria;
 import com.epam.jwd.core_final.criteria.FlightMissionCriteria;
 import com.epam.jwd.core_final.domain.*;
+import com.epam.jwd.core_final.exception.UnknownEntityException;
 import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import com.epam.jwd.core_final.service.MissionService;
 import com.epam.jwd.core_final.service.SpacemapService;
@@ -64,16 +65,12 @@ public class FlightMissionServiceImpl implements MissionService {
             return createMission(updateMission);
         }
         else {
-            // throw custom exception
+            throw new UnknownEntityException("Unknown Mission! Id is not valid!");
         }
-        return null;
     }
 
     @Override
     public FlightMission createMission(FlightMission flightMission) {
-        //validation
-        // custom exception
-
         missionList.add(flightMission);
         return flightMission;
     }

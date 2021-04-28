@@ -11,5 +11,5 @@ public interface Application {
         return NassaApplication.INSTANCE;
     }
 
-    ApplicationMenu start() throws InvalidStateException ;
+    ApplicationMenu start();
 }

@@ -1,10 +1,12 @@
 package com.epam.jwd.core_final.service.impl;
 
 import com.epam.jwd.core_final.domain.Planet;
+import com.epam.jwd.core_final.exception.UnknownEntityException;
 import com.epam.jwd.core_final.service.SpacemapService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SpacemapServiceImpl implements SpacemapService {
 
@@ -33,19 +35,18 @@ public class SpacemapServiceImpl implements SpacemapService {
 
     @Override
     public Planet getPlanetByName(String name) {
-        return planetList.stream().filter(planet -> planet.getName().equals(name)).findFirst().orElse(null);
+        return planetList.stream().filter(planet -> planet.getName().equals(name)).findFirst().orElseThrow(
+                new UnknownEntityException("Unknown Planet! Name not valid!"));
     }
 
     @Override
     public Planet getPlanetByID(long id) {
-        return planetList.stream().filter(planet -> planet.getId().equals(id)).findFirst().orElse(null);
+        return planetList.stream().filter(planet -> planet.getId().equals(id)).findFirst().orElseThrow(
+                new UnknownEntityException("Unknown Planet! Name not valid!"));
     }
 
     @Override
     public Planet addPlanetToMap(Planet planet) {
-        //validation
-        // custom exception
-
         planetList.add(planet);
         return planet;
     }

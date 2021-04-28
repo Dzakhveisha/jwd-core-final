@@ -2,6 +2,7 @@ package com.epam.jwd.core_final.service.impl;
 
 import com.epam.jwd.core_final.criteria.Criteria;
 import com.epam.jwd.core_final.domain.*;
+import com.epam.jwd.core_final.exception.UnknownEntityException;
 import com.epam.jwd.core_final.factory.impl.SpaceshipFactory;
 import com.epam.jwd.core_final.service.SpaceshipService;
 
@@ -63,9 +64,8 @@ public class SpaceshipServiceImpl implements SpaceshipService {
             return createSpaceship(createSpaceship(updateSpaceship));
         }
         else {
-            // throw custom exception
+           throw new UnknownEntityException("Unknown Spaceship! id is Invalid");
         }
-        return null;
     }
 
     @Override
@@ -75,10 +75,6 @@ public class SpaceshipServiceImpl implements SpaceshipService {
 
     @Override
     public Spaceship createSpaceship(Spaceship spaceship) throws RuntimeException {
-
-        //validation
-        // custom exception
-
         spaceshipList.add(spaceship);
         return spaceship;
     }

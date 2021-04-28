@@ -2,8 +2,6 @@ package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.context.ApplicationContext;
 import com.epam.jwd.core_final.domain.*;
-import com.epam.jwd.core_final.domain.Point;
-import com.epam.jwd.core_final.exception.InvalidStateException;
 import com.epam.jwd.core_final.factory.impl.CrewMemberFactory;
 import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import com.epam.jwd.core_final.factory.impl.PlanetFactory;
@@ -62,17 +60,15 @@ public class NassaContext implements ApplicationContext {
     /**
      * You have to read input files, populate collections
      *
-     * @throws InvalidStateException
      */
     @Override
-    public void init() throws InvalidStateException {
+    public void init(){
         ApplicationProperties properties = ApplicationProperties.getInstance();
 
         initPlanets(properties.getInputRootDir(), properties.getSpacemapFileName());
         initCrewMembers(properties.getInputRootDir(), properties.getCrewFileName());
         initSpaceships(properties.getInputRootDir(), properties.getSpaceshipsFileName());
         initMissions(properties.getInputRootDir(), properties.getMissionsFileName(), properties.getDateTimeFormat());
-        System.out.println("s");
     }
 
     private void initMissions(String dir, String file, String dateTimeFormat){

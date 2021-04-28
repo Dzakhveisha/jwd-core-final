@@ -1,6 +1,8 @@
 package com.epam.jwd.core_final.exception;
 
-public class UnknownEntityException extends RuntimeException {
+import java.util.function.Supplier;
+
+public class UnknownEntityException extends RuntimeException implements Supplier<UnknownEntityException> {
 
     private final String entityName;
     private final Object[] args;
@@ -22,5 +24,10 @@ public class UnknownEntityException extends RuntimeException {
         // todo
         // you should use entityName, args (if necessary)
         return null;
+    }
+
+    @Override
+    public UnknownEntityException get() {
+        return this;
     }
 }

@@ -4,6 +4,7 @@ import com.epam.jwd.core_final.criteria.Criteria;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.Rank;
 import com.epam.jwd.core_final.domain.Role;
+import com.epam.jwd.core_final.exception.UnknownEntityException;
 import com.epam.jwd.core_final.factory.impl.CrewMemberFactory;
 import com.epam.jwd.core_final.service.CrewService;
 
@@ -59,22 +60,16 @@ public class CrewMemberServiceImpl implements CrewService {
             return createCrewMember(updateMember);
         }
         else {
-            // throw custom exception
+            throw new UnknownEntityException("Unknown Crew member! Id is not valid!");
         }
-        return null;
     }
 
     @Override
     public void assignCrewMemberOnMission(CrewMember crewMember) throws RuntimeException {
-
     }
 
     @Override
     public CrewMember createCrewMember(CrewMember crewMember) throws RuntimeException {
-
-        //validation
-        // custom exception
-
         crewList.add(crewMember);
         return crewMember;
     }
