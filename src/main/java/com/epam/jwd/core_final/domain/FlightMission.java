@@ -2,6 +2,7 @@ package com.epam.jwd.core_final.domain;
 
 import com.epam.jwd.core_final.service.impl.SpacemapServiceImpl;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,7 @@ import java.util.Objects;
  * from {@link Planet}
  * to {@link Planet}
  */
-public class FlightMission extends AbstractBaseEntity {
+public class FlightMission extends AbstractBaseEntity{
 
     private String missionsName;
     private LocalDate startDate;
@@ -89,8 +90,8 @@ public class FlightMission extends AbstractBaseEntity {
                 "   assignedSpaceShift=" + assignedSpaceShift +
                 ", assignedCrew=" + assignedCrew +
                 ", missionResult=" + missionResult +
-                ",\n from=" + from +
-                ", to=" + to +
+                ",\n from=" + from.toString() +
+                ", to=" + to.toString() +
                 '\n';
     }
 }

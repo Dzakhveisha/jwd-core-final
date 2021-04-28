@@ -13,7 +13,9 @@ public class JsonConverter {
 
     private final File outputFile = new File(getClass().getClassLoader().getResource(ApplicationProperties.getInstance().getOutputRootDir()
             + "/" + ApplicationProperties.getInstance().getOutputFileName()).getFile());
-
+    private final String fileName = "src/main/resources/" +
+            ApplicationProperties.getInstance().getOutputRootDir()
+            + "/" + ApplicationProperties.getInstance().getOutputFileName();
 
     private JsonConverter(){}
 
@@ -31,7 +33,7 @@ public class JsonConverter {
     public void toJSON(FlightMission mission){
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(outputFile, mission);
+            mapper.writeValue(new File(fileName), mission);
             System.out.println("json created!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,8 +41,8 @@ public class JsonConverter {
     }
 
     public FlightMission toJavaObject() {
+        ObjectMapper mapper = new ObjectMapper();
         try {
-            ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(outputFile, FlightMission.class);
         } catch (IOException e) {
             e.printStackTrace();

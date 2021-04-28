@@ -1,6 +1,5 @@
 package com.epam.jwd.core_final.domain;
 
-import java.awt.Point;
 import java.util.Objects;
 
 /**
@@ -39,6 +38,6 @@ public class Planet extends AbstractBaseEntity{
     public String toString() {
         return "Planet{" +
                 "name=" + getName() +
-                ", location=(" + location.x  + ", " + location.y + ")}";
+                ", location=(" + location.getX()  + ", " + location.getY() + ")}";
     }
 }

@@ -2,6 +2,7 @@ package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.context.ApplicationContext;
 import com.epam.jwd.core_final.domain.*;
+import com.epam.jwd.core_final.domain.Point;
 import com.epam.jwd.core_final.exception.InvalidStateException;
 import com.epam.jwd.core_final.factory.impl.CrewMemberFactory;
 import com.epam.jwd.core_final.factory.impl.MissionFactory;
@@ -15,7 +16,7 @@ import com.epam.jwd.core_final.service.impl.FlightMissionServiceImpl;
 import com.epam.jwd.core_final.service.impl.SpacemapServiceImpl;
 import com.epam.jwd.core_final.service.impl.SpaceshipServiceImpl;
 
-import java.awt.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

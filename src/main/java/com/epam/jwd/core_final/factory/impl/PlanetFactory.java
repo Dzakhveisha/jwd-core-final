@@ -1,9 +1,8 @@
 package com.epam.jwd.core_final.factory.impl;
 
 import com.epam.jwd.core_final.domain.Planet;
+import com.epam.jwd.core_final.domain.Point;
 import com.epam.jwd.core_final.factory.EntityFactory;
-
-import java.awt.Point;
 
 public class PlanetFactory implements EntityFactory<Planet> {
 
