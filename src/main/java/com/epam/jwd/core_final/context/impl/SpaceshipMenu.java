@@ -7,8 +7,11 @@ import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.Rank;
 import com.epam.jwd.core_final.domain.Role;
 import com.epam.jwd.core_final.domain.Spaceship;
+import com.epam.jwd.core_final.exception.UnknownEntityException;
 import com.epam.jwd.core_final.service.SpaceshipService;
 import com.epam.jwd.core_final.service.impl.SpaceshipServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +20,7 @@ public class SpaceshipMenu extends NassaMenu {
 
     private final SpaceshipService SPACESHIP_SERVICE = SpaceshipServiceImpl.getInstance();
 
+    public static final Logger LOGGER = LoggerFactory.getLogger("LOGGER");
 
     public SpaceshipMenu(ApplicationContext applicationContext) {
         super(applicationContext);
@@ -64,10 +68,15 @@ public class SpaceshipMenu extends NassaMenu {
         } else {
             System.out.println("Enter the id of Spaceship :");
             long id = scan.nextLong();
-            Spaceship update = SPACESHIP_SERVICE.updateSpaceshipDetails(
-                    SPACESHIP_SERVICE.findSpaceshipByCriteria(new SpaceshipCriteria().searchByID(id)).
-                            orElse(null));
-            System.out.println(update);
+            try {
+                Spaceship update = SPACESHIP_SERVICE.updateSpaceshipDetails(
+                        SPACESHIP_SERVICE.findSpaceshipByCriteria(new SpaceshipCriteria().searchByID(id)).
+                                orElse(null));
+                System.out.println(update);
+            }
+            catch (UnknownEntityException ex){
+               LOGGER.error(ex.getMessage());
+            }
         }
         return 0;
     }

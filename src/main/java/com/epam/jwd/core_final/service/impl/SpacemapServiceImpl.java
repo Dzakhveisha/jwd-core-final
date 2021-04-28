@@ -36,13 +36,13 @@ public class SpacemapServiceImpl implements SpacemapService {
     @Override
     public Planet getPlanetByName(String name) {
         return planetList.stream().filter(planet -> planet.getName().equals(name)).findFirst().orElseThrow(
-                new UnknownEntityException("Unknown Planet! Name not valid!"));
+                new UnknownEntityException("Planet"));
     }
 
     @Override
     public Planet getPlanetByID(long id) {
         return planetList.stream().filter(planet -> planet.getId().equals(id)).findFirst().orElseThrow(
-                new UnknownEntityException("Unknown Planet! Name not valid!"));
+                new UnknownEntityException("Planet"));
     }
 
     @Override

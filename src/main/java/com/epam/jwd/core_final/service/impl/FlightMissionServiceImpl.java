@@ -65,7 +65,7 @@ public class FlightMissionServiceImpl implements MissionService {
             return createMission(updateMission);
         }
         else {
-            throw new UnknownEntityException("Unknown Mission! Id is not valid!");
+            throw new UnknownEntityException("Mission");
         }
     }
 

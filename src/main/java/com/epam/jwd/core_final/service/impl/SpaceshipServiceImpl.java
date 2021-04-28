@@ -64,7 +64,7 @@ public class SpaceshipServiceImpl implements SpaceshipService {
             return createSpaceship(createSpaceship(updateSpaceship));
         }
         else {
-           throw new UnknownEntityException("Unknown Spaceship! id is Invalid");
+           throw new UnknownEntityException("Spaceship");
         }
     }
 

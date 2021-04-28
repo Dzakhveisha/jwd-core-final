@@ -5,13 +5,17 @@ import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.Rank;
 import com.epam.jwd.core_final.domain.Role;
+import com.epam.jwd.core_final.exception.UnknownEntityException;
 import com.epam.jwd.core_final.service.CrewService;
 import com.epam.jwd.core_final.service.impl.CrewMemberServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CrewMemberMenu extends NassaMenu {
 
-    private final CrewService CREW_SERVICE = CrewMemberServiceImpl.getInstance();
+    public static final Logger LOGGER = LoggerFactory.getLogger("LOGGER");
 
+    private final CrewService CREW_SERVICE = CrewMemberServiceImpl.getInstance();
 
     public CrewMemberMenu(ApplicationContext applicationContext) {
         super(applicationContext);
@@ -63,10 +67,14 @@ public class CrewMemberMenu extends NassaMenu {
         } else {
             System.out.println("Enter the id of Crew Member :");
             long id = scan.nextLong();
-            CrewMember update = CREW_SERVICE.updateCrewMemberDetails(
-                    CREW_SERVICE.findCrewMemberByCriteria(new CrewMemberCriteria().searchByID(id)).
-                            orElse(new CrewMember(Role.PILOT, "", Rank.CAPTAIN)));
-            System.out.println(update);
+            try {
+                CrewMember update = CREW_SERVICE.updateCrewMemberDetails(
+                        CREW_SERVICE.findCrewMemberByCriteria(new CrewMemberCriteria().searchByID(id)).
+                                orElse(new CrewMember(Role.PILOT, "", Rank.CAPTAIN)));
+                System.out.println(update);
+            }catch (UnknownEntityException ex){
+                LOGGER.error(ex.getMessage());
+            }
         }
         return 0;
     }

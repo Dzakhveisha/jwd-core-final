@@ -21,9 +21,7 @@ public class UnknownEntityException extends RuntimeException implements Supplier
 
     @Override
     public String getMessage() {
-        // todo
-        // you should use entityName, args (if necessary)
-        return null;
+        return entityName + " is unknown!";
     }
 
     @Override

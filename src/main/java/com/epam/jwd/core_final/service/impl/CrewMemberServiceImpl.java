@@ -60,7 +60,7 @@ public class CrewMemberServiceImpl implements CrewService {
             return createCrewMember(updateMember);
         }
         else {
-            throw new UnknownEntityException("Unknown Crew member! Id is not valid!");
+            throw new UnknownEntityException("Crew member");
         }
     }
 

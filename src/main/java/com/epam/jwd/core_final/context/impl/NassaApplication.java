@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 public enum NassaApplication implements Application {
     INSTANCE;
 
-    static final Logger LOGGER = LoggerFactory.getLogger("LOGGER");
     private final ApplicationContext nassaContext = new NassaContext();
 
     @Override
